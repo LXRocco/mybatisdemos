@@ -28,18 +28,18 @@
         配置查询所有，resultType的作用就是返回封装类型
         #{}方式是占位符方式
     -->
-    <select id="findUserById" parameterType="int" resultType="com.mybatis.demos.domain.User">
+    <select id="findUserById" parameterType="int" resultType="User">
         select * from user where id = #{value}
     </select>
 
     <!--
         ${}是拼接sql语句方式，容易引起sql注入
     -->
-    <select id="findUserByName" parameterType="String" resultType="com.mybatis.demos.domain.User">
+    <select id="findUserByName" parameterType="String" resultType="User">
       select * from user where name like '%${value}'
     </select>
 
-    <insert id="insertOneUser" parameterType="com.mybatis.demos.domain.User">
+    <insert id="insertOneUser" parameterType="User">
         <!--
           将插入的自增对象记录的主键返回到java对象中
           LAST_INSERT_ID()函数得到insert 记录的主键值，只适用于自增主键
@@ -52,11 +52,11 @@
         #{createTime})
     </insert>
 
-    <delete id="deleteUserById" parameterType="com.mybatis.demos.domain.User">
+    <delete id="deleteUserById" parameterType="User">
         delete from user where id = #{id}
     </delete>
     
-    <update id="updateUserById" parameterType="com.mybatis.demos.domain.User">
+    <update id="updateUserById" parameterType="User">
         update user set `name` = #{name} where id = #{id}
     </update>
 </mapper>

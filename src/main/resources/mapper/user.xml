@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--
+    注意mybatis中，如果在mapper的xml文件中使用/*  */注释，可能会报异常The error may exist in mapper/user.xml
+
+    Cause: org.apache.ibatis.builder.BuilderException:
+    Error parsing SQL Mapper Configuration. Cause: org.apache.ibatis.builder.BuilderException:
+    Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException:
+     Parsing error was found in mapping #{}. Check syntax #{property|(expression), var1=value1, var2=value2, ...}
+-->
+<mapper namespace="user">
+
+    <!--
+        配置查询所有，resultType的作用就是返回封装类型
+        #{}方式是占位符方式
+    -->
+    <select id="findUserById" parameterType="int" resultType="com.mybatis.demos.domain.User">
+        select * from user where id = #{value}
+    </select>
+
+    <!--
+        ${}是拼接sql语句方式，容易引起sql注入
+    -->
+    <select id="findUserByName" parameterType="String" resultType="com.mybatis.demos.domain.User">
+      select * from user where name like '%${value}'
+    </select>
+
+    <insert id="insertOneUser" parameterType="com.mybatis.demos.domain.User">
+        <!--
+          将插入的自增对象记录的主键返回到java对象中
+          LAST_INSERT_ID()函数得到insert 记录的主键值，只适用于自增主键
+          keyProperty 表示将查询到的主键值注入到parameterType指定的对象的属性中
+        -->
+        <selectKey keyProperty="id" order="AFTER" resultType="int">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into user (id, username, `name`, password, create_time) values (#{id}, #{username}, #{name}, #{password},
+        #{createTime})
+    </insert>
+
+    <delete id="deleteUserById" parameterType="com.mybatis.demos.domain.User">
+        delete from user where id = #{id}
+    </delete>
+    
+    <update id="updateUserById" parameterType="com.mybatis.demos.domain.User">
+        update user set `name` = #{name} where id = #{id}
+    </update>
+</mapper>

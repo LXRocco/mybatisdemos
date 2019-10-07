@@ -5,13 +5,14 @@
 
 
 <!--
-    注意mybatis中，如果在mapper的xml文件中使用/*  */注释，可能会报异常The error may exist in mapper/user.xml
+    注意mybatis中，如果在mapper的xml文件中使用/*  */注释，可能会报异常The error may exist in mapper/user.mapper.xml
 
     Cause: org.apache.ibatis.builder.BuilderException:
     Error parsing SQL Mapper Configuration. Cause: org.apache.ibatis.builder.BuilderException:
     Error parsing Mapper XML. Cause: org.apache.ibatis.builder.BuilderException:
      Parsing error was found in mapping #{}. Check syntax #{property|(expression), var1=value1, var2=value2, ...}
 -->
+<!-- 普通方式的xml中namespace可以随便命名-->
 <mapper namespace="user">
 
     <!--

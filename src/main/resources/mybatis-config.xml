@@ -25,6 +25,6 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mapper/user.xml"/>
+        <mapper resource="sqlMap/user.xml"/>
     </mappers>
 </configuration>

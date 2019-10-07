@@ -2,6 +2,8 @@ package com.mybatis.demos.mapper;
 
 import com.mybatis.demos.domain.User;
 
+import java.util.List;
+
 /**
  * mapper接口，mybatis3会自动地生成mapper接口实现类代理对象。
  *
@@ -19,5 +21,8 @@ import com.mybatis.demos.domain.User;
  * @date 2019/10/7 17:04
  */
 public interface UserMapper {
-    public User findUserById(int id) throws Exception;
+    //根据id查找用户
+    User findUserById(int id) throws Exception;
+
+    List<User> findUserByName(String name) throws Exception;
 }

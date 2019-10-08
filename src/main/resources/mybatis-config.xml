@@ -18,12 +18,12 @@
     </settings>
 
     <!-- 别名-->
-    <typeAliases>
+   <!-- <typeAliases>-->
         <!-- 单个别名-->
        <!-- <typeAlias type="com.mybatis.demos.domain.User" alias="User"></typeAlias>-->
         <!-- 批量别名定义，mybatis会自动扫描包下面的类，别名为类名（首字母大小写均支持） -->
-        <package name="com.mybatis.demos.domain"></package>
-    </typeAliases>
+       <!-- <package name="com.mybatis.demos.domain"></package>-->
+    <!--</typeAliases>-->
 
     <!--与Spring整合后environments环境将废除-->
     <environments default="development">
@@ -42,5 +42,13 @@
     <mappers>
         <mapper resource="sqlMap/user.xml"/>
         <mapper resource="mapper/user.mapper.xml"/>
+        <!--
+            通过类路径加载mapper.xml
+               规范：要求*.xml文件的名字与类名相同，且在同一个目录中
+               前提：使用mapper代理的方式
+         -->
+        <!--<mapper class="com.mybatis.demos.mapper.UserMapper"></mapper>-->
+        <!-- 批量加载，要求满足上述类加载规范 -->
+        <!--<package name="com.mybatis.demos.mapper"></package>-->
     </mappers>
 </configuration>

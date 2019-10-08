@@ -4,6 +4,7 @@ import com.mybatis.demos.dao.UserDao;
 import com.mybatis.demos.dao.impl.UserDaoImpl;
 import com.mybatis.demos.domain.User;
 import com.mybatis.demos.mapper.UserMapper;
+import com.mybatis.demos.qo.UserQueryVO;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -40,6 +41,8 @@ public class UserMapperTest {
 
         User user = userMapper.findUserById(2);
 
+        sqlSession.close();
+
         System.out.println(user.toString());
 
     }
@@ -52,8 +55,24 @@ public class UserMapperTest {
 
         List<User> users = userMapper.findUserByName("sa");
 
+        sqlSession.close();
+
         System.out.println(users);
     }
 
+    @Test
+    public void testFindUserByParam() throws Exception {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+        UserQueryVO userQueryVO = new UserQueryVO();
+        User user = new User();
+        user.setName("sa");
+        user.setUsername("sa");
+        userQueryVO.setUser(user);
+        List<User> users = userMapper.findUserByParam(userQueryVO);
+        sqlSession.close();
+        System.out.println(users);
+    }
 
 }

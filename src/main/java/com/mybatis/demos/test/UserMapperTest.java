@@ -1,10 +1,8 @@
 package com.mybatis.demos.test;
 
-import com.mybatis.demos.dao.UserDao;
-import com.mybatis.demos.dao.impl.UserDaoImpl;
 import com.mybatis.demos.domain.User;
 import com.mybatis.demos.mapper.UserMapper;
-import com.mybatis.demos.qo.UserQueryVO;
+import com.mybatis.demos.qo.UserParam;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -13,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,12 +64,40 @@ public class UserMapperTest {
         SqlSession sqlSession = sqlSessionFactory.openSession();
         UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 
-        UserQueryVO userQueryVO = new UserQueryVO();
-        User user = new User();
-        user.setName("sa");
-        user.setUsername("sa");
-        userQueryVO.setUser(user);
-        List<User> users = userMapper.findUserByParam(userQueryVO);
+        UserParam userParam = new UserParam();
+
+        userParam.setName("sa");
+        userParam.setUsername("sa");
+        List<User> users = userMapper.findUserByParam(userParam);
+        sqlSession.close();
+        System.out.println(users);
+    }
+
+    @Test
+    public void testFindByParam() throws Exception {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        UserParam userParam = new UserParam();
+//        userParam.setName("sa");
+//        userParam.setUsername("sa");
+
+//        List<Integer> ids = new ArrayList<>();
+//        ids.add(1);
+//        ids.add(2);
+//        ids.add(3);
+//        ids.add(6);
+//        ids.add(7);
+//        userParam.setIds(ids);
+
+        List<String> usernames = new ArrayList<>();
+        usernames.add("sa");
+        usernames.add("sa2");
+        usernames.add("test");
+        usernames.add("admin");
+        usernames.add("lisa");
+
+        userParam.setUsernames(usernames);
+        List<User> users = userMapper.findByParam(userParam);
         sqlSession.close();
         System.out.println(users);
     }

@@ -23,6 +23,14 @@
     只有满足以上4点，mybatis才会自动地生成mapper接口实现类代理对象。
 -->
 <mapper namespace="com.mybatis.demos.mapper.UserMapper">
+    
+    <resultMap id="userResultMap" type="com.mybatis.demos.domain.User">
+        <id column="id" property="id"></id>
+        <result column="username" property="username"></result>
+        <result column="name" property="name"></result>
+        <result column="password" property="password"></result>
+        <result column="create_time" property="createTime"></result>
+    </resultMap>
 
     <!--
         配置查询所有，resultType的作用就是返回封装类型
@@ -59,8 +67,63 @@
     <update id="updateUserById" parameterType="com.mybatis.demos.domain.User">
         update user set `name` = #{name} where id = #{id}
     </update>
-    
-    <select id="findUserByParam" parameterType="com.mybatis.demos.qo.UserQueryVO" resultType="com.mybatis.demos.domain.User">
-        select * from user where `name` = #{user.name} and username = #{user.username}
+
+    <!-- 动态sql， 条件判断-->
+    <select id="findUserByParam" resultType="com.mybatis.demos.domain.User">
+        select * from user
+        <!--wehere 标签会自动去掉第一个and / or-->
+        <where>
+            <!-- 引用sql片段，如果id不在本xml中，需要加namespace-->
+            <include refid="userParams"></include>
+        </where>
     </select>
+
+    <!-- 动态sql， 条件判断
+        使用resultMap
+    -->
+    <select id="findByParam" resultMap="userResultMap">
+        select id, username, name, password, create_time from user
+        <!--wehere 标签会自动去掉第一个and / or-->
+        <where>
+            <!-- 引用sql片段，如果id不在本xml中，需要加namespace-->
+            <include refid="userParams"></include>
+        </where>
+    </select>
+    <!--
+        定义sql 片段：
+            注意事项：
+                1. id  sql片段的唯一标识
+            经验：
+                1. 基于单表定义sql片段，可重用性高
+                2. sql片段中不要包含where标签
+    -->
+
+    <sql id="userParams">
+        <if test="name != null and name != ''">
+            and name = #{name}
+        </if>
+        <if test="username != null and username != ''">
+            and username = #{username}
+        </if>
+        <!--
+            collection: 要遍历的集合
+            item: 遍历的集合中单向的对象名
+            open: 开始遍历时拼接的字符串
+            close:结束遍历时拼接的字符串
+            separator: 遍历过程，相连两个对象要拼接的串
+        -->
+        <if test="usernames != null">
+            and username in
+            <foreach collection="usernames" item="username" open="(" close=")" separator=",">
+                #{username}
+            </foreach>
+        </if>
+
+        <if test="ids != null">
+            and
+            <foreach collection="ids" item="id" open="(" close=")" separator="or">
+                id = #{id}
+            </foreach>
+        </if>
+    </sql>
 </mapper>

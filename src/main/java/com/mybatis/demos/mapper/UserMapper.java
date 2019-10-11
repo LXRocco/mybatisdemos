@@ -1,7 +1,7 @@
 package com.mybatis.demos.mapper;
 
 import com.mybatis.demos.domain.User;
-import com.mybatis.demos.qo.UserQueryVO;
+import com.mybatis.demos.qo.UserParam;
 
 import java.util.List;
 
@@ -27,5 +27,7 @@ public interface UserMapper {
 
     List<User> findUserByName(String name) throws Exception;
 
-    List<User> findUserByParam(UserQueryVO userQueryVO) throws Exception;
+    List<User> findUserByParam(UserParam userParam) throws Exception;
+
+    List<User> findByParam(UserParam userParam) throws Exception;
 }

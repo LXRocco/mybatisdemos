@@ -1,35 +1,43 @@
-package com.mybatis.demos.domain;
+package com.mybatis.demos.qo;
+
+import com.mybatis.demos.domain.User;
 
 import java.util.Date;
+import java.util.List;
 
 /**
+ * <p>Title: UserParam </p>
+ * <p>Description: 用户查询对象，包装类，禁止使用mapper类来传输</p>
+ * <p>Github: https://github.com/lxrocco </p>
  * @author lx
+ * @date 2019/10/8 23:06
  * @version 1.0
- * @date 2019/9/26 2:56
- * @descirption
- * @since
  */
-public class User {
+public class UserParam {
+
     private int id;
     private String username;
     private String name;
     private String password;
     private Date createTime;
 
-    public static User build() {
-        return new User();
+    private List<Integer> ids;
+    private List<String> usernames;
+
+    public List<String> getUsernames() {
+        return usernames;
     }
 
-    public User() {
-
+    public void setUsernames(List<String> usernames) {
+        this.usernames = usernames;
     }
 
-    public User(int id, String username, String name, String password, Date createTime) {
-        this.id = id;
-        this.username = username;
-        this.name = name;
-        this.password = password;
-        this.createTime = createTime;
+    public List<Integer> getIds() {
+        return ids;
+    }
+
+    public void setIds(List<Integer> ids) {
+        this.ids = ids;
     }
 
     public int getId() {
@@ -70,16 +78,5 @@ public class User {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", createTime=" + createTime +
-                '}';
     }
 }

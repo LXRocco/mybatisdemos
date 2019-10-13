@@ -1,7 +1,5 @@
 package com.mybatis.demos.qo;
 
-import com.mybatis.demos.domain.User;
-
 import java.util.Date;
 import java.util.List;
 

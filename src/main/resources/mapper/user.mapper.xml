@@ -23,8 +23,18 @@
     只有满足以上4点，mybatis才会自动地生成mapper接口实现类代理对象。
 -->
 <mapper namespace="com.mybatis.demos.mapper.UserMapper">
-    
+
+    <!--
+        resultMap  id 标识resultMap的唯一标识，type标识返回映射的对象类型
+
+        resultMap可以实现延迟加载，resultType不可以实现延迟加载
+     -->
     <resultMap id="userResultMap" type="com.mybatis.demos.domain.User">
+        <!--
+            配置直接映射
+            <id> </id> 标签，指定查询类表中的唯一标识，如果多个字段组成一个唯一标识，那么需要配置多个<id></id>标签
+            column 字段名， property resultMap映射的对象属性
+         -->
         <id column="id" property="id"></id>
         <result column="username" property="username"></result>
         <result column="name" property="name"></result>

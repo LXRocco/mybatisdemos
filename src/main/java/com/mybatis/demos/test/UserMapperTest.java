@@ -81,13 +81,13 @@ public class UserMapperTest {
 //        userParam.setName("sa");
 //        userParam.setUsername("sa");
 
-//        List<Integer> ids = new ArrayList<>();
-//        ids.add(1);
-//        ids.add(2);
-//        ids.add(3);
-//        ids.add(6);
-//        ids.add(7);
-//        userParam.setIds(ids);
+        List<Integer> ids = new ArrayList<>();
+        ids.add(1);
+        ids.add(2);
+        ids.add(3);
+        ids.add(6);
+        ids.add(7);
+        userParam.setIds(ids);
 
         List<String> usernames = new ArrayList<>();
         usernames.add("sa");

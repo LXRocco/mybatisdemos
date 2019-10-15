@@ -5,8 +5,7 @@
 
 <mapper namespace="com.mybatis.demos.mapper.OrderMapper">
 
-
-    <resultMap id="orderMap" type="com.mybatis.demos.qo.OrderParam">
+    <resultMap id="orderMap" type="com.mybatis.demos.domain.Order">
 
         <id column="id" property="id" />
         <result column="order_num" property="orderNum" />
@@ -29,6 +28,17 @@
         <result column="name" property="name" />
     </resultMap>
     
+    
+    <resultMap id="order_detail_map" type="com.mybatis.demos.domain.Order" extends="orderMap">
+        
+        <collection property="orderDetails" ofType="com.mybatis.demos.domain.OrderDetail">
+            <id column="item_id" property="itemId" />
+            <result column="item_num" property="itemNum" />
+            <result column="order_id" property="orderId" />
+        </collection>
+
+    </resultMap>
+    
     <select id="findOrderByParam" resultMap="orderMap">
         select orders.*, user.username, user.name from orders, user
         <where>
@@ -37,6 +47,26 @@
                and orders.order_num = #{orderNum}
             </if>
         </where>
+    </select>
+    
+    <select id="findOrdersAndOrderDetailsByParam" resultMap="order_detail_map">
+        SELECT
+            *
+        FROM
+            orders,
+            USER,
+            order_detail
+        <where>
+            USER .id = orders.user_id
+            AND orders.id = order_detail.order_id
+            <if test="orderNums != null and orderNums.size() > 0">
+               and order_num in
+               <foreach collection="orderNums" item="orderNum" open="(" separator="," close=")">
+                  #{orderNum}
+               </foreach>
+            </if>
+        </where>
+
     </select>
 
 </mapper>

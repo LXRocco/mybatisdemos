@@ -1,5 +1,6 @@
 package com.mybatis.demos.test;
 
+import com.mybatis.demos.domain.Order;
 import com.mybatis.demos.mapper.OrderMapper;
 import com.mybatis.demos.qo.OrderParam;
 import org.apache.ibatis.io.Resources;
@@ -10,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,9 +44,28 @@ public class OrderMapperTest {
         OrderParam orderParam = OrderParam.build();
         orderParam.setOrderNum("O20191013");
 
-        List<OrderParam> orderParams = orderMapper.findOrderByParam(orderParam);
+        List<Order> orders = orderMapper.findOrderByParam(orderParam);
 
         sqlSession.close();
-        System.out.println(orderParams);
+        System.out.println(orders);
+    }
+
+    @Test
+    public void findOrdersAndOrderDetailsByParam() throws Exception {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+
+        List<String> ordernums = new ArrayList<>();
+        ordernums.add("O20191013");
+        ordernums.add("O23749832");
+
+        OrderParam orderParam = OrderParam.build();
+        orderParam.setOrderNums(ordernums);
+
+        List<Order> orders = orderMapper.findOrdersAndOrderDetailsByParam(orderParam);
+
+        sqlSession.close();
+        System.out.println(orders.size());
+        System.out.println(orders);
     }
 }

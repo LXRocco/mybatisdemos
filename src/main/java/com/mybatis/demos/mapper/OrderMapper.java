@@ -1,5 +1,6 @@
 package com.mybatis.demos.mapper;
 
+import com.mybatis.demos.domain.Order;
 import com.mybatis.demos.qo.OrderParam;
 
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.List;
  */
 public interface OrderMapper {
 
-    List<OrderParam> findOrderByParam(OrderParam orderParam) throws Exception;
+    List<Order> findOrderByParam(OrderParam orderParam) throws Exception;
+
+    List<Order> findOrdersAndOrderDetailsByParam(OrderParam orderParam) throws Exception;
 
 }

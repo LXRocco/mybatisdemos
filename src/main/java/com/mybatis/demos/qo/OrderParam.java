@@ -3,6 +3,7 @@ package com.mybatis.demos.qo;
 import com.mybatis.demos.domain.User;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>Title: OrderParam </p>
@@ -21,7 +22,7 @@ public class OrderParam {
     private Date createTime;
     private String note;
 
-    private User user;
+    List<String> orderNums;
 
 
     public static OrderParam build() {
@@ -68,12 +69,12 @@ public class OrderParam {
         this.note = note;
     }
 
-    public User getUser() {
-        return user;
+    public List<String> getOrderNums() {
+        return orderNums;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setOrderNums(List<String> orderNums) {
+        this.orderNums = orderNums;
     }
 
     @Override
@@ -89,8 +90,6 @@ public class OrderParam {
                 .append(createTime).append('\"');
         sb.append(",\"note\":\"")
                 .append(note).append('\"');
-        sb.append(",\"user\":")
-                .append(user);
         sb.append('}');
         return sb.toString();
     }

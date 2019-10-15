@@ -1,6 +1,7 @@
 package com.mybatis.demos.domain;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>Title: Order </p>
@@ -18,6 +19,27 @@ public class Order {
     private String orderNum;
     private Date createTime;
     private String note;
+
+    //扩展字段  --用于查询返回映射
+    private User user;
+    //扩展字段  --用于查询返回映射
+    private List<OrderDetail> orderDetails;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
 
     public int getId() {
         return id;

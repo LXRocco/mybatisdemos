@@ -122,14 +122,14 @@
             close:结束遍历时拼接的字符串
             separator: 遍历过程，相连两个对象要拼接的串
         -->
-        <if test="usernames != null">
+        <if test="usernames != null and usernames.size() > 0">
             and username in
             <foreach collection="usernames" item="username" open="(" close=")" separator=",">
                 #{username}
             </foreach>
         </if>
 
-        <if test="ids != null">
+        <if test="ids != null and ids.size() > 0">
             and
             <foreach collection="ids" item="id" open="(" close=")" separator="or">
                 id = #{id}

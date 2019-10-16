@@ -41,6 +41,33 @@
         <result column="password" property="password"></result>
         <result column="create_time" property="createTime"></result>
     </resultMap>
+    
+    
+    <resultMap id="userItemMap" type="com.mybatis.demos.domain.User">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="username" property="username"></result>
+        
+        <collection property="orders" ofType="com.mybatis.demos.domain.Order">
+            <id column="id" property="id"></id>
+            <result column="order_num" property="orderNum"></result>
+            <result column="note" property="note"></result>
+            <result column="create_time" property="createTime"></result>
+
+            <collection property="orderDetails" ofType="com.mybatis.demos.domain.OrderDetail">
+                <id column="order_detail_id" property="orderDetailId"></id>
+                <result column="item_id" property="itemId"></result>
+                <result column="item_num" property="itemNum"></result>
+                <association property="item" javaType="com.mybatis.demos.domain.Item">
+                    <id column="item_id" property="itemId"></id>
+                    <result column="item_name" property="itemName"></result>
+                    <result column="item_price" property="itemPrice"></result>
+                    <result column="item_des" property="itemDes"></result>
+                </association>
+            </collection>
+        </collection>
+
+    </resultMap>
 
     <!--
         配置查询所有，resultType的作用就是返回封装类型
@@ -99,6 +126,27 @@
             <include refid="userParams"></include>
         </where>
     </select>
+
+    <select id="findUserItemAllByParam" resultMap="userItemMap">
+        select
+          *
+        from
+            user,
+            orders,
+            order_detail,
+            item
+        <where>
+            user.id = orders.user_id
+            and orders.id = order_detail.order_id
+            and order_detail.item_id = item.item_id
+            <if test="usernames != null and usernames.size() > 0">
+                and username in
+                <foreach collection="usernames" item="username" open="(" separator="," close=")">
+                    #{username}
+                </foreach>
+            </if>
+        </where>
+    </select>
     <!--
         定义sql 片段：
             注意事项：
@@ -107,7 +155,6 @@
                 1. 基于单表定义sql片段，可重用性高
                 2. sql片段中不要包含where标签
     -->
-
     <sql id="userParams">
         <if test="name != null and name != ''">
             and name = #{name}

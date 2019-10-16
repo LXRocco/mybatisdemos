@@ -1,6 +1,7 @@
 package com.mybatis.demos.domain;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author lx
@@ -16,6 +17,9 @@ public class User {
     private String password;
     private Date createTime;
 
+    //扩展属性
+    List<Order> orders;
+
     public static User build() {
         return new User();
     }
@@ -30,6 +34,14 @@ public class User {
         this.name = name;
         this.password = password;
         this.createTime = createTime;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     public int getId() {
@@ -74,12 +86,20 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", createTime=" + createTime +
-                '}';
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"id\":")
+                .append(id);
+        sb.append(",\"username\":\"")
+                .append(username).append('\"');
+        sb.append(",\"name\":\"")
+                .append(name).append('\"');
+        sb.append(",\"password\":\"")
+                .append(password).append('\"');
+        sb.append(",\"createTime\":\"")
+                .append(createTime).append('\"');
+        sb.append(",\"orders\":")
+                .append(orders);
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -83,12 +83,22 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", orderNum='" + orderNum + '\'' +
-                ", createTime=" + createTime +
-                ", note='" + note + '\'' +
-                '}';
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"id\":")
+                .append(id);
+        sb.append(",\"userId\":")
+                .append(userId);
+        sb.append(",\"orderNum\":\"")
+                .append(orderNum).append('\"');
+        sb.append(",\"createTime\":\"")
+                .append(createTime).append('\"');
+        sb.append(",\"note\":\"")
+                .append(note).append('\"');
+        sb.append(",\"user\":")
+                .append(user);
+        sb.append(",\"orderDetails\":")
+                .append(orderDetails);
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -1,6 +1,7 @@
 package com.mybatis.demos.test;
 
 import com.mybatis.demos.domain.Order;
+import com.mybatis.demos.domain.User;
 import com.mybatis.demos.mapper.OrderMapper;
 import com.mybatis.demos.qo.OrderParam;
 import org.apache.ibatis.io.Resources;
@@ -67,5 +68,22 @@ public class OrderMapperTest {
         sqlSession.close();
         System.out.println(orders.size());
         System.out.println(orders);
+    }
+
+    /**
+     * 测试延迟加载  mybatis 标签方式 association
+     */
+    @Test
+    public void findOrdersAnduser() throws Exception {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+        List<Order> orders = orderMapper.findOrdersAnduser();
+
+//        for (Order order : orders) {
+//            User user = order.getUser();
+//            System.out.println(user.getUsername());
+//        }
+        sqlSession.close();
+//        System.out.println(orders);
     }
 }

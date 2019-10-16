@@ -102,4 +102,22 @@ public class UserMapperTest {
         System.out.println(users);
     }
 
+
+    @Test
+    public void testFindUserItemAllByParam() throws Exception {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        UserParam userParam = new UserParam();
+        List<String> usernames = new ArrayList<>();
+        usernames.add("sa");
+        usernames.add("bob");
+        usernames.add("test");
+        usernames.add("admin");
+        usernames.add("lisa");
+        userParam.setUsernames(usernames);
+        List<User> users = userMapper.findUserItemAllByParam(userParam);
+        sqlSession.close();
+        System.out.println(users);
+    }
+
 }

@@ -25,9 +25,14 @@ public interface UserMapper {
     //根据id查找用户
     User findUserById(int id) throws Exception;
 
+    //根据用户名查询
     List<User> findUserByName(String name) throws Exception;
 
+    //根据参数查询
     List<User> findUserByParam(UserParam userParam) throws Exception;
 
     List<User> findByParam(UserParam userParam) throws Exception;
+
+    //查询用户 关联的order orderdetail item， 并映射到User的扩展属性中
+    List<User> findUserItemAllByParam(UserParam userParam) throws Exception;
 }

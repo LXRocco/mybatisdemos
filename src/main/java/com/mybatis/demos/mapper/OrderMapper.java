@@ -18,6 +18,10 @@ public interface OrderMapper {
 
     List<Order> findOrderByParam(OrderParam orderParam) throws Exception;
 
+    //查询一对多，使用collection实现映射
     List<Order> findOrdersAndOrderDetailsByParam(OrderParam orderParam) throws Exception;
+
+    //使用mybatis association select 实现
+    List<Order> findOrdersAnduser() throws Exception;
 
 }

@@ -10,9 +10,28 @@ package com.mybatis.demos.domain;
  */
 public class OrderDetail {
 
+    private String orderDetailId;
     private String itemId;
     private int orderId;
     private int itemNum;
+
+    private Item item;
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public String getOrderDetailId() {
+        return orderDetailId;
+    }
+
+    public void setOrderDetailId(String orderDetailId) {
+        this.orderDetailId = orderDetailId;
+    }
 
     public String getItemId() {
         return itemId;

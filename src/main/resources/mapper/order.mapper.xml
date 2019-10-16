@@ -39,6 +39,18 @@
 
     </resultMap>
     
+    <resultMap id="orderWithUserMap" type="com.mybatis.demos.domain.Order">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="order_num" property="orderNum" />
+        <result column="create_time" property="createTime" />
+        <result column="note" property="note" />
+
+        <!-- 使用 association  select 实现延迟加载-->
+        <association property="user" select="com.mybatis.demos.mapper.UserMapper.findUserById" column="user_id">
+        </association>
+    </resultMap>
+    
     <select id="findOrderByParam" resultMap="orderMap">
         select orders.*, user.username, user.name from orders, user
         <where>
@@ -57,7 +69,7 @@
             USER,
             order_detail
         <where>
-            USER .id = orders.user_id
+            USER.id = orders.user_id
             AND orders.id = order_detail.order_id
             <if test="orderNums != null and orderNums.size() > 0">
                and order_num in
@@ -67,6 +79,11 @@
             </if>
         </where>
 
+    </select>
+
+
+    <select id="findOrdersAnduser" resultMap="orderWithUserMap">
+        select orders.* from orders
     </select>
 
 </mapper>

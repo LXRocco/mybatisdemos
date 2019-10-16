@@ -15,6 +15,10 @@
     <settings>
         <!-- 是否开启自动驼峰命名规则（camel case）映射，即从数据库列名 A_COLUMN 到属性名 aColumn 的类似映射 -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+
+        <!-- 开启延迟加载  按需加载 -->
+        <setting name="lazyLoadingEnabled" value="true" />
+        <setting name="aggressiveLazyLoading" value="false" />
     </settings>
 
     <!-- 别名-->
@@ -40,7 +44,7 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="sqlMap/user.xml"/>
+       <!-- <mapper resource="sqlMap/user.xml"/>-->
         <mapper resource="mapper/user.mapper.xml"/>
         <mapper resource="mapper/order.mapper.xml"/>
         <!--

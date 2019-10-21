@@ -120,4 +120,33 @@ public class UserMapperTest {
         System.out.println(users);
     }
 
+    /**
+     * 测试一级缓存
+     * 一级缓存是SqlSession级别的，默认不需要配置，但是执行commit操作后，会自动情况SQLSession级别的一级缓存
+     */
+    @Test
+    public void testOneClassCache() throws Exception{
+
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+        //第一次查询
+        User u1 = userMapper.findUserById(2);
+        System.out.println(u1);
+
+//        u1.setUsername(u1.getUsername() + "test");
+//        int result = userMapper.updateUserById(u1);
+//
+//        //执行commit操作，自动清空一级缓存
+//        sqlSession.commit();
+
+        //第二次查询
+        User u2 = userMapper.findUserById(2);
+        System.out.println(u2);
+
+        //关闭SqlSession
+        sqlSession.close();
+    }
+
 }

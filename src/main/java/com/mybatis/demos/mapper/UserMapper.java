@@ -35,4 +35,6 @@ public interface UserMapper {
 
     //查询用户 关联的order orderdetail item， 并映射到User的扩展属性中
     List<User> findUserItemAllByParam(UserParam userParam) throws Exception;
+
+    int updateUserById(User user) throws Exception;
 }

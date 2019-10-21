@@ -102,7 +102,7 @@
     </delete>
     
     <update id="updateUserById" parameterType="com.mybatis.demos.domain.User">
-        update user set `name` = #{name} where id = #{id}
+        update user set `name` = #{name}, username = #{username} where id = #{id}
     </update>
 
     <!-- 动态sql， 条件判断-->

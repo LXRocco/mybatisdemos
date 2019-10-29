@@ -1,5 +1,6 @@
 package com.mybatis.demos.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @descirption
  * @since
  */
-public class User {
+public class User implements Serializable {
     private int id;
     private String username;
     private String name;

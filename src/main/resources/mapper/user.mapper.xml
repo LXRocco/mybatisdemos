@@ -24,6 +24,9 @@
 -->
 <mapper namespace="com.mybatis.demos.mapper.UserMapper">
 
+    <!-- 开启本namespace范围下的二级缓存-->
+    <cache />
+
     <!--
         resultMap  id 标识resultMap的唯一标识，type标识返回映射的对象类型
 
@@ -101,7 +104,7 @@
         delete from user where id = #{id}
     </delete>
     
-    <update id="updateUserById" parameterType="com.mybatis.demos.domain.User">
+    <update id="updateUser" parameterType="com.mybatis.demos.domain.User">
         update user set `name` = #{name}, username = #{username} where id = #{id}
     </update>
 

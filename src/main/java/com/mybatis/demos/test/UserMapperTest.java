@@ -122,7 +122,7 @@ public class UserMapperTest {
 
     /**
      * 测试一级缓存
-     * 一级缓存是SqlSession级别的，默认不需要配置，但是执行commit操作后，会自动情况SQLSession级别的一级缓存
+     * 一级缓存是SqlSession级别的，默认不需要配置，但是执行commit操作后，会自动清空SQLSession级别的一级缓存
      */
     @Test
     public void testOneClassCache() throws Exception{
@@ -145,8 +145,53 @@ public class UserMapperTest {
         User u2 = userMapper.findUserById(2);
         System.out.println(u2);
 
+        //测试不同mapper是否也会默认从缓存找
+        UserMapper userMapper1 = sqlSession.getMapper(UserMapper.class);
+        User u3 = userMapper1.findUserById(2);
+        System.out.println(u3);
         //关闭SqlSession
         sqlSession.close();
+    }
+
+
+    /**
+     * 二级缓存测试代码
+     * @throws Exception
+     */
+    @Test
+    public void testSecondClassCache() throws Exception{
+
+        SqlSession sqlSession1 = sqlSessionFactory.openSession();
+        SqlSession sqlSession2= sqlSessionFactory.openSession();
+        SqlSession sqlSession3 = sqlSessionFactory.openSession();
+        SqlSession sqlSession4 = sqlSessionFactory.openSession();
+
+        UserMapper userMapper1 = sqlSession1.getMapper(UserMapper.class);
+        User u1 = userMapper1.findUserById(2); //二级缓存的对象必须是序列化对象
+
+        //只有当sqlSession关闭时，才会写入缓存
+        sqlSession1.close();
+        System.out.println(u1);
+
+        UserMapper userMapper2 = sqlSession2.getMapper(UserMapper.class);
+        User u2 = userMapper2.findUserById(2);
+        sqlSession2.close();
+        System.out.println(u2);
+
+
+        UserMapper userMapper3 = sqlSession3.getMapper(UserMapper.class);
+        User u3 = userMapper3.findUserById(2);
+        u3.setUsername(u3.getUsername()+"_cache");
+        userMapper3.updateUser(u3);
+        sqlSession3.commit();  //commit会fluse缓存，即mybatis会清空缓存
+        sqlSession3.close();
+        System.out.println(u3);
+
+
+        UserMapper userMapper4 = sqlSession4.getMapper(UserMapper.class);
+        User u4 = userMapper4.findUserById(2);
+        sqlSession3.close();
+        System.out.println(u4);
     }
 
 }

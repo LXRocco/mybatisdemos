@@ -1,4 +1,3 @@
-package com.mybatis.demos.test;
 /**
  * <p>Title: Test </p>
  * <p>Description:  </p>

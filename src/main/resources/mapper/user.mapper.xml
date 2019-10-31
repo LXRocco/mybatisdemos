@@ -24,8 +24,12 @@
 -->
 <mapper namespace="com.mybatis.demos.mapper.UserMapper">
 
-    <!-- 开启本namespace范围下的二级缓存-->
-    <cache />
+    <!--
+        开启本mapper的namespace范围下的二级缓存
+        type: 指定cache接口的实现类型，mybatis默认使用PerpetualCache
+        要和ehcache整合，需要配置type为ehcache实现cache接口的类型
+    -->
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
 
     <!--
         resultMap  id 标识resultMap的唯一标识，type标识返回映射的对象类型

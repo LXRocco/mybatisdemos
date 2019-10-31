@@ -1,5 +1,3 @@
-package com.mybatis.demos.test;
-
 import com.mybatis.demos.dao.UserDao;
 import com.mybatis.demos.dao.impl.UserDaoImpl;
 import com.mybatis.demos.domain.User;

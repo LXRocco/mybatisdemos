@@ -1,5 +1,3 @@
-package com.mybatis.demos.test;
-
 import com.mybatis.demos.domain.Order;
 import com.mybatis.demos.domain.User;
 import com.mybatis.demos.mapper.OrderMapper;

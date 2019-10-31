@@ -1,5 +1,3 @@
-package com.mybatis.demos.test;
-
 import com.mybatis.demos.domain.User;
 import com.mybatis.demos.mapper.UserMapper;
 import com.mybatis.demos.qo.UserParam;
@@ -178,19 +176,19 @@ public class UserMapperTest {
         sqlSession2.close();
         System.out.println(u2);
 
-
-        UserMapper userMapper3 = sqlSession3.getMapper(UserMapper.class);
-        User u3 = userMapper3.findUserById(2);
-        u3.setUsername(u3.getUsername()+"_cache");
-        userMapper3.updateUser(u3);
-        sqlSession3.commit();  //commit会fluse缓存，即mybatis会清空缓存
-        sqlSession3.close();
-        System.out.println(u3);
+//
+//        UserMapper userMapper3 = sqlSession3.getMapper(UserMapper.class);
+//        User u3 = userMapper3.findUserById(2);
+//        u3.setUsername(u3.getUsername());
+//        userMapper3.updateUser(u3);
+//        sqlSession3.commit();  //commit会fluse缓存，即mybatis会清空缓存
+//        sqlSession3.close();
+//        System.out.println(u3);
 
 
         UserMapper userMapper4 = sqlSession4.getMapper(UserMapper.class);
         User u4 = userMapper4.findUserById(2);
-        sqlSession3.close();
+        sqlSession4.close();
         System.out.println(u4);
     }
 

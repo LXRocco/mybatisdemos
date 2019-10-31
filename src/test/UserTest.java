@@ -1,5 +1,3 @@
-package com.mybatis.demos.test;
-
 import com.mybatis.demos.dbConfig.MyBatisConnector;
 import com.mybatis.demos.domain.User;
 import org.apache.ibatis.session.SqlSession;

@@ -14,6 +14,7 @@ import java.util.List;
 public class UserParam {
 
     private int id;
+
     private String username;
     private String name;
     private String password;
